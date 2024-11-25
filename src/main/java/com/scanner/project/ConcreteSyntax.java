@@ -135,7 +135,10 @@ public class ConcreteSyntax {
 		// Block --> '{' Statements '}'
 		Block b = new Block();
 		while (!token.getValue().equals("}")) {
-			b.blockmembers.addElement(statement());
+			Statement s = statement();
+			if (!(s instanceof Skip)) {
+				b.blockmembers.addElement(s);
+			}
 		}
 		return b;
 	}
@@ -260,7 +263,7 @@ public class ConcreteSyntax {
 		} else if (token.getType().equals("Literal")) {
 			Value v = null;
 			if (isInteger(token.getValue()))
-				v = new Value(Integer.parseInt(token.getValue()));
+				v = new Value((new Integer(token.getValue())).intValue());
 			else if (token.getValue().equals("True"))
 				v = new Value(true);
 			else if (token.getValue().equals("False"))
