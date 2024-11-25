@@ -135,7 +135,10 @@ public class ConcreteSyntax {
 		// Block --> '{' Statements '}'
 		Block b = new Block();
 		while (!token.getValue().equals("}")) {
-			b.blockmembers.addElement(statement());
+			Statement s = statement();
+			if (!(s instanceof Skip)) {
+				b.blockmembers.addElement(s);
+			}
 		}
 		return b;
 	}
