@@ -152,7 +152,6 @@ public class ConcreteSyntax {
 			token = input.nextToken();
 			match(":=");
 			a.source = expression();
-			match(";");
 		} else {
 			throw new RuntimeException(SyntaxError("Identifier"));
 		}
@@ -263,7 +262,7 @@ public class ConcreteSyntax {
 		} else if (token.getType().equals("Literal")) {
 			Value v = null;
 			if (isInteger(token.getValue()))
-				v = new Value((new Integer(token.getValue())).intValue());
+				v = new Value(Integer.parseInt(token.getValue()));
 			else if (token.getValue().equals("True"))
 				v = new Value(true);
 			else if (token.getValue().equals("False"))
@@ -290,7 +289,7 @@ public class ConcreteSyntax {
 		match(")");
 		c.thenbranch = statement();
 		if (token.getValue().equals("else")) { 
-			match("else");
+			token = input.nextToken();
 			c.elsebranch = statement();
 		}
 		return c;
