@@ -279,7 +279,3 @@ public class TokenStream {
 		return isEof;
 	}
 }
-	public boolean isEndofFile() {
-		return isEof;
-	}
-}
